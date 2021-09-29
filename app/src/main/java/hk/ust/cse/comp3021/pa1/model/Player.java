@@ -15,7 +15,7 @@ public final class Player extends Entity {
      * Creates an instance of {@link Player}, initially not present on any {@link EntityCell}.
      */
     public Player() {
-        // TODO
+        // TODO(DONE)
     }
 
     /**
@@ -24,7 +24,8 @@ public final class Player extends Entity {
      * @param owner The initial {@link EntityCell} the player belongs to.
      */
     public Player(@NotNull final EntityCell owner) {
-        // TODO
+        // TODO(DONE)
+        this.setOwner(owner);
     }
 
     @Override

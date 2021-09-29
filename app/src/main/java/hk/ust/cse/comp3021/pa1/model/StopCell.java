@@ -14,8 +14,8 @@ public final class StopCell extends EntityCell {
      * @param position The position where this cell belongs at.
      */
     public StopCell(@NotNull final Position position) {
-        // TODO
-        super(null);
+        // TODO(DONE)
+        super(position);
     }
 
     /**
@@ -25,8 +25,8 @@ public final class StopCell extends EntityCell {
      * @param initialEntity The initial entity present in this cell.
      */
     public StopCell(@NotNull final Position position, @Nullable final Entity initialEntity) {
-        // TODO
-        super(null);
+        // TODO(DONE)
+        super(position, initialEntity);
     }
 
     /**
@@ -37,8 +37,22 @@ public final class StopCell extends EntityCell {
     @Nullable
     @Override
     public Entity setEntity(@Nullable final Entity newEntity) {
-        // TODO
-        return null;
+        // TODO(DONE)
+        if (newEntity != null && !(newEntity instanceof Player)){
+            throw new IllegalArgumentException("entity should be an instance of Player if it is not null");
+        }
+        Entity previousEntity = this.entity;
+        if (this.entity != null){
+            this.entity.setOwner(null);
+        }
+        if (newEntity != null){
+            if (newEntity.getOwner() != null) {
+                newEntity.getOwner().setEntity(null);
+            }
+            newEntity.setOwner(this);
+        }
+        this.entity = newEntity;
+        return previousEntity;
     }
 
     /**
@@ -54,8 +68,8 @@ public final class StopCell extends EntityCell {
      */
     @Nullable
     public Player setPlayer(@Nullable final Player newPlayer) {
-        // TODO
-        return null;
+        // TODO(DONE)
+        return (Player) this.setEntity(newPlayer);
     }
 
     @Override

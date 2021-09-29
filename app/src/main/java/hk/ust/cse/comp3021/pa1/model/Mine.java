@@ -15,7 +15,7 @@ public final class Mine extends Entity {
      * Creates an instance of {@link Mine}, initially not present on any {@link EntityCell}.
      */
     public Mine() {
-        // TODO
+        // TODO(DONE)
     }
 
     /**
@@ -24,7 +24,8 @@ public final class Mine extends Entity {
      * @param owner The initial {@link EntityCell} the mine belongs to.
      */
     public Mine(@NotNull final EntityCell owner) {
-        // TODO
+        // TODO(DONE)
+        this.setOwner(owner);
     }
 
     @Override

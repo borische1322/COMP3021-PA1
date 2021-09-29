@@ -15,7 +15,7 @@ public final class Gem extends Entity {
      * Creates an instance of {@link Gem}, initially not present on any {@link EntityCell}.
      */
     public Gem() {
-        // TODO
+        // TODO(DONE)
     }
 
     /**
@@ -24,7 +24,8 @@ public final class Gem extends Entity {
      * @param owner The initial {@link EntityCell} the gem belongs to.
      */
     public Gem(@NotNull final EntityCell owner) {
-        // TODO
+        // TODO(DONE)
+        this.setOwner(owner);
     }
 
     @Override

@@ -29,8 +29,13 @@ public record Position(int row, int col) {
      */
     @NotNull
     public Position offsetBy(final int dRow, final int dCol) {
-        // TODO
-        return null;
+        // TODO(DONE)
+        var x = this.col - dCol;
+        var y = this.row - dRow;
+        if ( x < 0 || y < 0 ){
+            throw new IllegalArgumentException("Offset is larger than current position resulting in negative value");
+        }
+        return new Position(y,x);
     }
 
     /**
@@ -42,8 +47,13 @@ public record Position(int row, int col) {
      */
     @NotNull
     public Position offsetBy(@NotNull final PositionOffset offset) {
-        // TODO
-        return null;
+        // TODO(DONE)
+        var x = this.col - offset.dCol();
+        var y = this.row - offset.dRow();
+        if ( x < 0 || y < 0 ){
+            throw new IllegalArgumentException("Offset is larger than current position resulting in negative value");
+        }
+        return new Position(y,x);
     }
 
     /**
@@ -59,8 +69,13 @@ public record Position(int row, int col) {
      */
     @Nullable
     public Position offsetByOrNull(final int dRow, final int dCol, final int numRows, final int numCols) {
-        // TODO
-        return null;
+        // TODO(DONE)
+        var x = this.col - dCol;
+        var y = this.row - dRow;
+        if ( x < 0 || y < 0 || x > (numCols - 1) || y > (numRows - 1)){
+            return null;
+        }
+        return new Position(y,x);
     }
 
     /**
@@ -75,7 +90,12 @@ public record Position(int row, int col) {
      */
     @Nullable
     public Position offsetByOrNull(@NotNull final PositionOffset offset, final int numRows, final int numCols) {
-        // TODO
-        return null;
+        // TODO(DONE)
+        var x = this.col - offset.dCol();
+        var y = this.row - offset.dRow();
+        if ( x < 0 || y < 0 || x > (numCols - 1) || y > (numRows - 1)){
+            return null;
+        }
+        return new Position(y,x);
     }
 }

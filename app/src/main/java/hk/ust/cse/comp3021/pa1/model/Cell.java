@@ -16,8 +16,8 @@ public abstract sealed class Cell implements BoardElement permits EntityCell, Wa
      * @param position The position where this cell belongs at.
      */
     protected Cell(@NotNull final Position position) {
-        // TODO
-        this.position = null;
+        // TODO(DONE)
+        this.position = position;
     }
 
     /**
@@ -25,7 +25,7 @@ public abstract sealed class Cell implements BoardElement permits EntityCell, Wa
      */
     @NotNull
     public final Position getPosition() {
-        // TODO
-        return null;
+        // TODO(DONE)
+        return this.position;
     }
 }

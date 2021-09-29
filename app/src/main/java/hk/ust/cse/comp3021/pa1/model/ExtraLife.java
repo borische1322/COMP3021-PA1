@@ -15,7 +15,7 @@ public final class ExtraLife extends Entity {
      * Creates an instance of {@link ExtraLife}, initially not present on any {@link EntityCell}.
      */
     public ExtraLife() {
-        // TODO
+        // TODO(DONE)
     }
 
     /**
@@ -24,7 +24,8 @@ public final class ExtraLife extends Entity {
      * @param owner The initial {@link EntityCell} the extra life belongs to.
      */
     public ExtraLife(@NotNull final EntityCell owner) {
-        // TODO
+        // TODO(DONE)
+        this.setOwner(owner);
     }
 
     @Override

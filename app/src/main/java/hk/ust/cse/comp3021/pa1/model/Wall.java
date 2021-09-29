@@ -13,8 +13,8 @@ public final class Wall extends Cell {
      * @param position The position where this cell belongs at.
      */
     public Wall(@NotNull final Position position) {
-        // TODO
-        super(null);
+        // TODO(DONE)
+        super(position);
     }
 
     @Override
