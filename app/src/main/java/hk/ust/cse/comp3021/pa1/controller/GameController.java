@@ -23,8 +23,8 @@ public class GameController {
      * @param gameState The instance of {@link GameState} to control.
      */
     public GameController(@NotNull final GameState gameState) {
-        // TODO
-        this.gameState = null;
+        // TODO(DONE)
+        this.gameState = gameState;
     }
 
     /**
@@ -34,8 +34,8 @@ public class GameController {
      * @return An instance of {@link MoveResult} indicating the result of the action.
      */
     public MoveResult processMove(@NotNull final Direction direction) {
-        // TODO
-        return null;
+        // TODO(DONE)
+        return gameState.getGameBoardController().makeMove(direction);
     }
 
     /**
@@ -44,7 +44,12 @@ public class GameController {
      * @return {@code false} if there are no steps to undo.
      */
     public boolean processUndo() {
-        // TODO
-        return false;
+        // TODO(DONE)
+        if (gameState.getNumMoves() == 0){
+            return false;
+        }else{
+            gameState.getGameBoardController().undoMove(gameState.getMoveStack().pop());
+            return true;
+        }
     }
 }

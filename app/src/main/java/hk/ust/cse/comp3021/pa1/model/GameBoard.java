@@ -245,138 +245,138 @@ public final class GameBoard {
                 }
             }
         }
-        for (int i = y - 1, j = x - 1; i >= 0 || j >= 0; i--, j--){ //up left
-            if (i == 0 || j == 0){
-                if (!fill[i][j][0]){
-                    reachableCell(j, i, cells, numGems, fill);
-                    break;
-                }
-            }
-            if (cells[i][j] instanceof Wall){
-                if(i == y - 1 && j == x - 1){
-                    break;
-                }else if (!fill[i+1][j+1][0]){
-                    reachableCell(j+1, i+1, cells, numGems, fill);
-                    break;
-                }
-            }
-            if (cells[i][j] instanceof EntityCell c){
-                if(c.entity instanceof Gem){
-                    if (!fill[i][j][1]){
-                        numGems++;
-                        fill[i][j][1] = true;
-                    }
-                }else if (c.entity instanceof Mine){
-                    fill[i][j][0] = true;
-                    break;
-                }
-                if(c instanceof StopCell ){
-                    if (!fill[i][j][0]){
-                        reachableCell(j, i, cells, numGems, fill);
-                        break;
-                    }
-                }
-            }
-        }
-        for (int i = y - 1, j = x + 1; i >= 0 || j <numCols; i--, j++){ // up right
-            if (i == 0 || j + 1 == numCols){
-                if (!fill[i][j][0]){
-                    reachableCell(j, i, cells, numGems, fill);
-                    break;
-                }
-            }
-            if (cells[i][j] instanceof Wall){
-                if(i == y - 1 && j == x + 1){
-                    break;
-                }else if (!fill[i+1][j-1][0]){
-                    reachableCell(j-1, i+1, cells, numGems, fill);
-                    break;
-                }
-            }
-            if (cells[i][j] instanceof EntityCell c){
-                if(c.entity instanceof Gem){
-                    if (!fill[i][j][1]){
-                        numGems++;
-                        fill[i][j][1] = true;
-                    }
-                }else if (c.entity instanceof Mine){
-                    fill[i][j][0] = true;
-                    break;
-                }
-                if(c instanceof StopCell ){
-                    if (!fill[i][j][0]){
-                        reachableCell(j, i, cells, numGems, fill);
-                        break;
-                    }
-                }
-            }
-        }
-        for (int i = y + 1, j = x - 1; i < numRows || j >= 0; i++, j--){ // down left
-            if (i +1 == numRows || j == 0){
-                if (!fill[i][j][0]){
-                    reachableCell(j, i, cells, numGems, fill);
-                    break;
-                }
-            }
-            if (cells[i][j] instanceof Wall){
-                if(i == y + 1 && j == x - 1){
-                    break;
-                }else if (!fill[i-1][j+1][0]){
-                    reachableCell(j+1, i-1, cells, numGems, fill);
-                    break;
-                }
-            }
-            if (cells[i][j] instanceof EntityCell c){
-                if(c.entity instanceof Gem){
-                    if (!fill[i][j][1]){
-                        numGems++;
-                        fill[i][j][1] = true;
-                    }
-                }else if (c.entity instanceof Mine){
-                    fill[i][j][0] = true;
-                    break;
-                }
-                if(c instanceof StopCell ){
-                    if (!fill[i][j][0]){
-                        reachableCell(j, i, cells, numGems, fill);
-                        break;
-                    }
-                }
-            }
-        }
-        for (int i = y + 1, j = x + 1; i < numRows || j < numCols; i++, j++){ // down right
-            if (i +1 == numRows || j +1 == numCols){
-                if (!fill[i][j][0]){
-                    reachableCell(j, i, cells, numGems, fill);
-                    break;
-                }
-            }
-            if (cells[i][j] instanceof Wall){
-                if(i == y + 1 && j == x + 1){
-                    break;
-                }else if (!fill[i-1][j-1][0]){
-                    reachableCell(j-1, i-1, cells, numGems, fill);
-                    break;
-                }
-            }
-            if (cells[i][j] instanceof EntityCell c){
-                if(c.entity instanceof Gem){
-                    if (!fill[i][j][1]){
-                        numGems++;
-                        fill[i][j][1] = true;
-                    }
-                }else if (c.entity instanceof Mine){
-                    fill[i][j][0] = true;
-                    break;
-                }
-                if(c instanceof StopCell ){
-                    if (!fill[i][j][0]){
-                        reachableCell(j, i, cells, numGems, fill);
-                        break;
-                    }
-                }
-            }
-        }
+//        for (int i = y - 1, j = x - 1; i >= 0 || j >= 0; i--, j--){ //up left
+//            if (i == 0 || j == 0){
+//                if (!fill[i][j][0]){
+//                    reachableCell(j, i, cells, numGems, fill);
+//                    break;
+//                }
+//            }
+//            if (cells[i][j] instanceof Wall){
+//                if(i == y - 1 && j == x - 1){
+//                    break;
+//                }else if (!fill[i+1][j+1][0]){
+//                    reachableCell(j+1, i+1, cells, numGems, fill);
+//                    break;
+//                }
+//            }
+//            if (cells[i][j] instanceof EntityCell c){
+//                if(c.entity instanceof Gem){
+//                    if (!fill[i][j][1]){
+//                        numGems++;
+//                        fill[i][j][1] = true;
+//                    }
+//                }else if (c.entity instanceof Mine){
+//                    fill[i][j][0] = true;
+//                    break;
+//                }
+//                if(c instanceof StopCell ){
+//                    if (!fill[i][j][0]){
+//                        reachableCell(j, i, cells, numGems, fill);
+//                        break;
+//                    }
+//                }
+//            }
+//        }
+//        for (int i = y - 1, j = x + 1; i >= 0 || j <numCols; i--, j++){ // up right
+//            if (i == 0 || j + 1 == numCols){
+//                if (!fill[i][j][0]){
+//                    reachableCell(j, i, cells, numGems, fill);
+//                    break;
+//                }
+//            }
+//            if (cells[i][j] instanceof Wall){
+//                if(i == y - 1 && j == x + 1){
+//                    break;
+//                }else if (!fill[i+1][j-1][0]){
+//                    reachableCell(j-1, i+1, cells, numGems, fill);
+//                    break;
+//                }
+//            }
+//            if (cells[i][j] instanceof EntityCell c){
+//                if(c.entity instanceof Gem){
+//                    if (!fill[i][j][1]){
+//                        numGems++;
+//                        fill[i][j][1] = true;
+//                    }
+//                }else if (c.entity instanceof Mine){
+//                    fill[i][j][0] = true;
+//                    break;
+//                }
+//                if(c instanceof StopCell ){
+//                    if (!fill[i][j][0]){
+//                        reachableCell(j, i, cells, numGems, fill);
+//                        break;
+//                    }
+//                }
+//            }
+//        }
+//        for (int i = y + 1, j = x - 1; i < numRows || j >= 0; i++, j--){ // down left
+//            if (i +1 == numRows || j == 0){
+//                if (!fill[i][j][0]){
+//                    reachableCell(j, i, cells, numGems, fill);
+//                    break;
+//                }
+//            }
+//            if (cells[i][j] instanceof Wall){
+//                if(i == y + 1 && j == x - 1){
+//                    break;
+//                }else if (!fill[i-1][j+1][0]){
+//                    reachableCell(j+1, i-1, cells, numGems, fill);
+//                    break;
+//                }
+//            }
+//            if (cells[i][j] instanceof EntityCell c){
+//                if(c.entity instanceof Gem){
+//                    if (!fill[i][j][1]){
+//                        numGems++;
+//                        fill[i][j][1] = true;
+//                    }
+//                }else if (c.entity instanceof Mine){
+//                    fill[i][j][0] = true;
+//                    break;
+//                }
+//                if(c instanceof StopCell ){
+//                    if (!fill[i][j][0]){
+//                        reachableCell(j, i, cells, numGems, fill);
+//                        break;
+//                    }
+//                }
+//            }
+//        }
+//        for (int i = y + 1, j = x + 1; i < numRows || j < numCols; i++, j++){ // down right
+//            if (i +1 == numRows || j +1 == numCols){
+//                if (!fill[i][j][0]){
+//                    reachableCell(j, i, cells, numGems, fill);
+//                    break;
+//                }
+//            }
+//            if (cells[i][j] instanceof Wall){
+//                if(i == y + 1 && j == x + 1){
+//                    break;
+//                }else if (!fill[i-1][j-1][0]){
+//                    reachableCell(j-1, i-1, cells, numGems, fill);
+//                    break;
+//                }
+//            }
+//            if (cells[i][j] instanceof EntityCell c){
+//                if(c.entity instanceof Gem){
+//                    if (!fill[i][j][1]){
+//                        numGems++;
+//                        fill[i][j][1] = true;
+//                    }
+//                }else if (c.entity instanceof Mine){
+//                    fill[i][j][0] = true;
+//                    break;
+//                }
+//                if(c instanceof StopCell ){
+//                    if (!fill[i][j][0]){
+//                        reachableCell(j, i, cells, numGems, fill);
+//                        break;
+//                    }
+//                }
+//            }
+//        }
         return numGems;
     }
 

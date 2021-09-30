@@ -1,9 +1,9 @@
 package hk.ust.cse.comp3021.pa1.controller;
 
-import hk.ust.cse.comp3021.pa1.model.Direction;
-import hk.ust.cse.comp3021.pa1.model.GameBoard;
-import hk.ust.cse.comp3021.pa1.model.MoveResult;
+import hk.ust.cse.comp3021.pa1.model.*;
 import org.jetbrains.annotations.NotNull;
+
+import java.util.Objects;
 
 /**
  * Controller for {@link GameBoard}.
@@ -24,8 +24,8 @@ public class GameBoardController {
      * @param gameBoard The instance of {@link GameBoard} to control.
      */
     public GameBoardController(@NotNull final GameBoard gameBoard) {
-        // TODO
-        this.gameBoard = null;
+        // TODO(DONE)
+        this.gameBoard = gameBoard;
     }
 
     /**
@@ -42,8 +42,60 @@ public class GameBoardController {
      */
     @NotNull
     public MoveResult makeMove(@NotNull final Direction direction) {
-        // TODO
-        return null;
+        // TODO(DONE)
+        int delta = 0;
+        assert gameBoard.getPlayer().getOwner() != null;
+        var playerPosition = gameBoard.getPlayer().getOwner().getPosition();
+        var playerRow = playerPosition.row();
+        var playerCol = playerPosition.col();
+        int offsetR = 0;
+        int offsetC = 0;
+        if ((offsetR = direction.getOffset().dRow()) != 0){
+            playerRow += offsetR;
+            delta ++;
+            while(playerRow >= 0 && playerRow < gameBoard.getNumRows()){
+                if (gameBoard.getCell(playerRow,playerCol) instanceof Wall){
+                    if (delta == 1){
+                        return new MoveResult.Invalid(playerPosition);
+                    }else{
+                        gameBoard.getPlayer().setOwner(gameBoard.getEntityCell(playerRow + delta*offsetR, playerCol));
+                        return new MoveResult.Valid.Alive(playerPosition.offsetBy(delta * offsetR, 0), playerPosition);
+                    }
+                } else if (gameBoard.getCell(playerRow,playerCol) instanceof EntityCell c){
+                    if(c.getEntity() instanceof Mine){
+                        return new MoveResult.Valid.Dead(playerPosition, playerPosition.offsetBy(delta * offsetR, 0));
+                    }else if (c instanceof StopCell){
+                        gameBoard.getPlayer().setOwner(gameBoard.getEntityCell(playerRow + delta*offsetR, playerCol));
+                        return new MoveResult.Valid.Alive(playerPosition.offsetBy(delta * offsetR, 0), playerPosition);
+                    }
+                }
+                delta++;
+                playerRow += offsetR;
+            }
+        }else if ((offsetC = direction.getOffset().dCol()) != 0){
+            playerCol += offsetC;
+            delta ++;
+            while(playerCol >= 0 && playerCol < gameBoard.getNumCols()){
+                if (gameBoard.getCell(playerRow,playerCol) instanceof Wall){
+                    if (delta == 1){
+                        return new MoveResult.Invalid(playerPosition);
+                    }else{
+                        gameBoard.getPlayer().setOwner(gameBoard.getEntityCell(playerRow, playerCol + delta * offsetC));
+                        return new MoveResult.Valid.Alive(playerPosition.offsetBy(0, delta * offsetC), playerPosition);
+                    }
+                } else if (gameBoard.getCell(playerRow,playerCol) instanceof EntityCell c){
+                    if(c.getEntity() instanceof Mine){
+                        return new MoveResult.Valid.Dead(playerPosition, playerPosition.offsetBy(0, delta * offsetC));
+                    }else if (c instanceof StopCell){
+                        gameBoard.getPlayer().setOwner(gameBoard.getEntityCell(playerRow, playerCol + delta * offsetC));
+                        return new MoveResult.Valid.Alive(playerPosition.offsetBy(0, delta * offsetC), playerPosition);
+                    }
+                }
+                delta++;
+                playerCol += offsetC;
+            }
+        }
+        return new MoveResult.Invalid(playerPosition);
     }
 
     /**
@@ -56,6 +108,9 @@ public class GameBoardController {
      * @param prevMove The {@link MoveResult} object to revert.
      */
     public void undoMove(@NotNull final MoveResult prevMove) {
-        // TODO
+        // TODO(DONE)
+        if (prevMove instanceof MoveResult.Valid c){
+            Objects.requireNonNull(((EntityCell) gameBoard.getCell(((MoveResult.Valid) prevMove).newPosition)).getEntity()).setOwner(gameBoard.getEntityCell(c.origPosition));
+        }
     }
 }
