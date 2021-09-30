@@ -28,4 +28,9 @@ public abstract sealed class Cell implements BoardElement permits EntityCell, Wa
         // TODO(DONE)
         return this.position;
     }
+    //to be deleted, just for checking
+//    @Override
+//    public String toString() {
+//        return "Empty Cell";
+//    }
 }

@@ -37,4 +37,10 @@ public final class Gem extends Entity {
     public char toASCIIChar() {
         return '*';
     }
+
+    //to be deleted, just for checking
+//    @Override
+//    public String toString() {
+//        return "Gem";
+//    }
 }

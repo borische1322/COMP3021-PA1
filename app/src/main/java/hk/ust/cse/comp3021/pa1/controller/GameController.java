@@ -35,7 +35,19 @@ public class GameController {
      */
     public MoveResult processMove(@NotNull final Direction direction) {
         // TODO(DONE)
-        return gameState.getGameBoardController().makeMove(direction);
+        MoveResult move = gameState.getGameBoardController().makeMove(direction);
+        if (move instanceof MoveResult.Valid ){
+            if (move instanceof MoveResult.Valid.Alive c) {
+                gameState.increaseNumLives(c.collectedExtraLives.size());
+                gameState.getMoveStack().push(move);
+            }
+            gameState.incrementNumMoves();
+            if (move instanceof MoveResult.Valid.Dead){
+                gameState.incrementNumDeaths();
+                gameState.decrementNumLives();
+            }
+        }
+        return move;
     }
 
     /**

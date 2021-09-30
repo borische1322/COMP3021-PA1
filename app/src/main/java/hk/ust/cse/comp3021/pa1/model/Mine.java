@@ -37,4 +37,10 @@ public final class Mine extends Entity {
     public char toASCIIChar() {
         return 'X';
     }
+
+    //to be deleted, just for checking
+//    @Override
+//    public String toString() {
+//        return "Mine";
+//    }
 }

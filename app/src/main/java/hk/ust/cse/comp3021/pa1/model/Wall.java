@@ -26,4 +26,10 @@ public final class Wall extends Cell {
     public char toASCIIChar() {
         return 'W';
     }
+
+    //to be deleted, just for checking
+//    @Override
+//    public String toString() {
+//        return "Wall Cell";
+//    }
 }

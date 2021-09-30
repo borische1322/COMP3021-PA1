@@ -37,4 +37,10 @@ public final class ExtraLife extends Entity {
     public char toASCIIChar() {
         return 'L';
     }
+
+    //to be deleted, just for checking
+//    @Override
+//    public String toString() {
+//        return "Extra Life";
+//    }
 }

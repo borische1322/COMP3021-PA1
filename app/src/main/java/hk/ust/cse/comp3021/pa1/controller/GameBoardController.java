@@ -3,6 +3,9 @@ package hk.ust.cse.comp3021.pa1.controller;
 import hk.ust.cse.comp3021.pa1.model.*;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -43,7 +46,10 @@ public class GameBoardController {
     @NotNull
     public MoveResult makeMove(@NotNull final Direction direction) {
         // TODO(DONE)
+        List<Position> collectedGems = new ArrayList<Position>();
+        List<Position> collectedExtra = new ArrayList<Position>();
         int delta = 0;
+        //System.out.println(gameBoard.getPlayer().getOwner());
         assert gameBoard.getPlayer().getOwner() != null;
         var playerPosition = gameBoard.getPlayer().getOwner().getPosition();
         var playerRow = playerPosition.row();
@@ -58,15 +64,23 @@ public class GameBoardController {
                     if (delta == 1){
                         return new MoveResult.Invalid(playerPosition);
                     }else{
-                        gameBoard.getPlayer().setOwner(gameBoard.getEntityCell(playerRow + delta*offsetR, playerCol));
-                        return new MoveResult.Valid.Alive(playerPosition.offsetBy(delta * offsetR, 0), playerPosition);
+                        gameBoard.getEntityCell(playerRow-offsetR, playerCol).setEntity(gameBoard.getPlayer());
+                        return new MoveResult.Valid.Alive(playerPosition.offsetBy(delta * offsetR-offsetR, 0), playerPosition,collectedGems,collectedExtra);
                     }
                 } else if (gameBoard.getCell(playerRow,playerCol) instanceof EntityCell c){
+                    if(c.getEntity() instanceof Gem){
+                        gameBoard.getEntityCell(playerRow, playerCol).setEntity(null);
+                        collectedGems.add(new Position(playerRow,playerCol));
+                    }
+                    if(c.getEntity() instanceof ExtraLife){
+                        gameBoard.getEntityCell(playerRow, playerCol).setEntity(null);
+                        collectedExtra.add(new Position(playerRow,playerCol));
+                    }
                     if(c.getEntity() instanceof Mine){
                         return new MoveResult.Valid.Dead(playerPosition, playerPosition.offsetBy(delta * offsetR, 0));
                     }else if (c instanceof StopCell){
-                        gameBoard.getPlayer().setOwner(gameBoard.getEntityCell(playerRow + delta*offsetR, playerCol));
-                        return new MoveResult.Valid.Alive(playerPosition.offsetBy(delta * offsetR, 0), playerPosition);
+                        gameBoard.getEntityCell(playerRow, playerCol).setEntity(gameBoard.getPlayer());
+                        return new MoveResult.Valid.Alive(playerPosition.offsetBy(delta * offsetR, 0), playerPosition,collectedGems,collectedExtra);
                     }
                 }
                 delta++;
@@ -80,15 +94,23 @@ public class GameBoardController {
                     if (delta == 1){
                         return new MoveResult.Invalid(playerPosition);
                     }else{
-                        gameBoard.getPlayer().setOwner(gameBoard.getEntityCell(playerRow, playerCol + delta * offsetC));
-                        return new MoveResult.Valid.Alive(playerPosition.offsetBy(0, delta * offsetC), playerPosition);
+                        gameBoard.getEntityCell(playerRow, playerCol-offsetC).setEntity(gameBoard.getPlayer());
+                        return new MoveResult.Valid.Alive(playerPosition.offsetBy(0, delta * offsetC-offsetC), playerPosition,collectedGems,collectedExtra);
                     }
                 } else if (gameBoard.getCell(playerRow,playerCol) instanceof EntityCell c){
+                    if(c.getEntity() instanceof Gem){
+                        gameBoard.getEntityCell(playerRow, playerCol).setEntity(null);
+                        collectedGems.add(new Position(playerRow,playerCol));
+                    }
+                    if(c.getEntity() instanceof ExtraLife){
+                        gameBoard.getEntityCell(playerRow, playerCol).setEntity(null);
+                        collectedExtra.add(new Position(playerRow,playerCol));
+                    }
                     if(c.getEntity() instanceof Mine){
                         return new MoveResult.Valid.Dead(playerPosition, playerPosition.offsetBy(0, delta * offsetC));
                     }else if (c instanceof StopCell){
-                        gameBoard.getPlayer().setOwner(gameBoard.getEntityCell(playerRow, playerCol + delta * offsetC));
-                        return new MoveResult.Valid.Alive(playerPosition.offsetBy(0, delta * offsetC), playerPosition);
+                        gameBoard.getEntityCell(playerRow, playerCol).setEntity(gameBoard.getPlayer());
+                        return new MoveResult.Valid.Alive(playerPosition.offsetBy(0, delta * offsetC), playerPosition,collectedGems,collectedExtra);
                     }
                 }
                 delta++;
@@ -110,7 +132,7 @@ public class GameBoardController {
     public void undoMove(@NotNull final MoveResult prevMove) {
         // TODO(DONE)
         if (prevMove instanceof MoveResult.Valid c){
-            Objects.requireNonNull(((EntityCell) gameBoard.getCell(((MoveResult.Valid) prevMove).newPosition)).getEntity()).setOwner(gameBoard.getEntityCell(c.origPosition));
+            gameBoard.getEntityCell(c.origPosition).setEntity(gameBoard.getEntityCell(c.newPosition).getEntity());
         }
     }
 }

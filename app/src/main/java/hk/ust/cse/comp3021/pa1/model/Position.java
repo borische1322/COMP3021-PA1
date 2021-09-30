@@ -30,8 +30,8 @@ public record Position(int row, int col) {
     @NotNull
     public Position offsetBy(final int dRow, final int dCol) {
         // TODO(DONE)
-        var x = this.col - dCol;
-        var y = this.row - dRow;
+        var x = this.col + dCol;
+        var y = this.row + dRow;
         if ( x < 0 || y < 0 ){
             throw new IllegalArgumentException("Offset is larger than current position resulting in negative value");
         }

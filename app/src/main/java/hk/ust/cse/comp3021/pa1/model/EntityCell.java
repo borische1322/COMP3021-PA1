@@ -47,6 +47,9 @@ public sealed class EntityCell extends Cell permits StopCell {
         // TODO(DONE)
         this(position);
         entity = initialEntity;
+        if (initialEntity != null) {
+            initialEntity.setOwner(this);
+        }
     }
 
     /**
@@ -105,4 +108,13 @@ public sealed class EntityCell extends Cell permits StopCell {
     public char toASCIIChar() {
         return getEntity() != null ? getEntity().toASCIIChar() : '.';
     }
+
+    //to be deleted, just for checking
+//    @Override
+//    public String toString() {
+//        if (entity == null ){
+//            return "Entity Cell: null";
+//        }
+//        return "Entity Cell: " + entity.toString();
+//    }
 }
