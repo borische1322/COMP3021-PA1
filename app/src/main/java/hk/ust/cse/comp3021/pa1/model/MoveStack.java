@@ -30,15 +30,16 @@ public class MoveStack {
      * @param move The move to push into this stack.
      */
     public void push(@NotNull final MoveResult move) {
-        // TODO
+        // TODO(DONE)
+        moves.add(0, move);
     }
 
     /**
      * @return Whether the stack is currently empty.
      */
     public boolean isEmpty() {
-        // TODO
-        return false;
+        // TODO(DONE)
+        return moves.isEmpty();
     }
 
     /**
@@ -48,7 +49,11 @@ public class MoveStack {
      */
     @NotNull
     public MoveResult pop() {
-        // TODO
+        // TODO(DONE)
+        if (!this.isEmpty()){
+            popCount++;
+            return moves.remove(0);
+        }
         return null;
     }
 
@@ -56,8 +61,8 @@ public class MoveStack {
      * @return The number of {@link MoveStack#pop} calls invoked.
      */
     public int getPopCount() {
-        // TODO
-        return 0;
+        // TODO(DONE)
+        return popCount;
     }
 
     /**
@@ -73,7 +78,7 @@ public class MoveStack {
      */
     @NotNull
     public MoveResult peek() {
-        // TODO
-        return null;
+        // TODO(DONE)
+        return moves.get(0);
     }
 }

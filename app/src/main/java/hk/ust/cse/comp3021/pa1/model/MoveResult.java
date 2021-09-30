@@ -34,10 +34,10 @@ public abstract sealed class MoveResult {
          * @param origPosition The original {@link Position} of the player before moving.
          */
         private Valid(@NotNull final Position newPosition, @NotNull final Position origPosition) {
-            // TODO
-            super(null);
+            // TODO(DONE)
+            super(newPosition);
 
-            this.origPosition = null;
+            this.origPosition = origPosition;
         }
 
         /**
@@ -86,11 +86,11 @@ public abstract sealed class MoveResult {
                          @NotNull final List<Position> collectedGems,
                          @NotNull final List<Position> collectedExtraLives
             ) {
-                // TODO
-                super(null, null);
+                // TODO(DONE)
+                super(newPosition, origPosition);
 
-                this.collectedGems = null;
-                this.collectedExtraLives = null;
+                this.collectedGems = collectedGems;
+                this.collectedExtraLives = collectedExtraLives;
             }
         }
 
@@ -120,10 +120,10 @@ public abstract sealed class MoveResult {
              *                     dies from).
              */
             public Dead(@NotNull final Position newPosition, @NotNull final Position minePosition) {
-                // TODO
-                super(null, null);
+                // TODO(DONE)
+                super(newPosition, newPosition);
 
-                this.minePosition = null;
+                this.minePosition = minePosition;
             }
         }
     }
@@ -145,8 +145,8 @@ public abstract sealed class MoveResult {
          *                    original position before the move.
          */
         public Invalid(@NotNull final Position newPosition) {
-            // TODO
-            super(null);
+            // TODO(DONE)
+            super(newPosition);
         }
     }
 
@@ -156,8 +156,8 @@ public abstract sealed class MoveResult {
      * @param newPosition The new {@link Position} of the player after making the move.
      */
     private MoveResult(@NotNull final Position newPosition) {
-        // TODO
-        this.newPosition = null;
+        // TODO(DONE)
+        this.newPosition = newPosition;
     }
 }
 
