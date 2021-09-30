@@ -56,9 +56,10 @@ public class GameState {
      * @param gameBoard The game board to be managed by this instance.
      */
     public GameState(@NotNull final GameBoard gameBoard) {
-        // TODO
-        this.gameBoard = null;
-        this.initialNumOfGems = 0;
+        // TODO(DONE)
+        this.gameBoard = gameBoard;
+        this.initialNumOfGems = gameBoard.getNumGems();
+        this.numLives = UNLIMITED_LIVES;
     }
 
     /**
@@ -73,9 +74,10 @@ public class GameState {
      *                  unlimited number of lives.
      */
     public GameState(@NotNull final GameBoard gameBoard, final int numLives) {
-        // TODO
-        this.gameBoard = null;
-        this.initialNumOfGems = 0;
+        // TODO(DONE)
+        this.gameBoard = gameBoard;
+        this.initialNumOfGems = gameBoard.getNumGems();
+        this.numLives = numLives;
     }
 
     /**
@@ -88,8 +90,8 @@ public class GameState {
      * @return Whether the player has won the game.
      */
     public boolean hasWon() {
-        // TODO
-        return false;
+        // TODO(DONE)
+        return this.gameBoard.getNumGems() == 0;
     }
 
     /**
@@ -103,8 +105,8 @@ public class GameState {
      * @return Whether the player has lost the game.
      */
     public boolean hasLost() {
-        // TODO
-        return false;
+        // TODO(DONE)
+        return numLives == 0;
     }
 
     /**
@@ -115,8 +117,13 @@ public class GameState {
      * {@link Integer#MAX_VALUE}.
      */
     public int increaseNumLives(final int delta) {
-        // TODO
-        return 0;
+        // TODO(DONE)
+        if (numLives == -1){
+            return Integer.MAX_VALUE;
+        }else {
+            numLives += delta;
+            return numLives;
+        }
     }
 
     /**
@@ -127,8 +134,13 @@ public class GameState {
      * {@link Integer#MAX_VALUE}.
      */
     public int decreaseNumLives(final int delta) {
-        // TODO
-        return 0;
+        // TODO(DONE)
+        if (numLives == -1){
+            return Integer.MAX_VALUE;
+        }else {
+            numLives -= delta;
+            return numLives;
+        }
     }
 
     /**
@@ -138,8 +150,13 @@ public class GameState {
      * {@link Integer#MAX_VALUE}.
      */
     public int decrementNumLives() {
-        // TODO
-        return 0;
+        // TODO(DONE)
+        if (numLives == -1){
+            return Integer.MAX_VALUE;
+        }else {
+            numLives -= 1;
+            return numLives;
+        }
     }
 
     /**
@@ -148,8 +165,9 @@ public class GameState {
      * @return The new number of moves taken by the player.
      */
     public int incrementNumMoves() {
-        // TODO
-        return 0;
+        // TODO(DONE)
+        numMoves++;
+        return numMoves;
     }
 
     /**
@@ -158,32 +176,33 @@ public class GameState {
      * @return The new number of deaths of the player.
      */
     public int incrementNumDeaths() {
-        // TODO
-        return 0;
+        // TODO(DONE)
+        numDeaths++;
+        return numDeaths;
     }
 
     /**
      * @return The current number of deaths of the player.
      */
     public int getNumDeaths() {
-        // TODO
-        return 0;
+        // TODO(DONE)
+        return numDeaths;
     }
 
     /**
      * @return The current number of moves taken by the player.
      */
     public int getNumMoves() {
-        // TODO
-        return 0;
+        // TODO(DONE)
+        return numMoves;
     }
 
     /**
      * @return Whether the player has unlimited lives.
      */
     public boolean hasUnlimitedLives() {
-        // TODO
-        return false;
+        // TODO(DONE)
+        return numLives == -1;
     }
 
     /**
@@ -191,16 +210,20 @@ public class GameState {
      * {@link Integer#MAX_VALUE}.
      */
     public int getNumLives() {
-        // TODO
-        return 0;
+        // TODO(DONE)
+        if (numLives == -1){
+            return Integer.MAX_VALUE;
+        }else {
+            return numLives;
+        }
     }
 
     /**
      * @return The number of gems that is still present on the game board.
      */
     public int getNumGems() {
-        // TODO
-        return 0;
+        // TODO(DONE)
+        return this.gameBoard.getNumGems();
     }
 
     /**
@@ -218,24 +241,24 @@ public class GameState {
      * @return The current score of this game.
      */
     public int getScore() {
-        // TODO
-        return 0;
+        // TODO(DONE)
+        return gameBoard.getNumCols()* gameBoard.getNumRows() + getNumGems()*10 - numMoves - moveStack.getPopCount()*2 - numDeaths*4;
     }
 
     /**
      * @return A controller of the managed game board for mutation.
      */
     public GameBoardController getGameBoardController() {
-        // TODO
-        return null;
+        // TODO(DONE)
+        return new GameBoardController(this.gameBoard);
     }
 
     /**
      * @return A read-only view of the managed game board.
      */
     public GameBoardView getGameBoardView() {
-        // TODO
-        return null;
+        // TODO(DONE)
+        return new GameBoardView(this.gameBoard);
     }
 
     /**
@@ -243,8 +266,8 @@ public class GameState {
      */
     @NotNull
     public GameBoard getGameBoard() {
-        // TODO
-        return null;
+        // TODO(DONE)
+        return this.gameBoard;
     }
 
     /**
@@ -252,7 +275,7 @@ public class GameState {
      */
     @NotNull
     public MoveStack getMoveStack() {
-        // TODO
-        return null;
+        // TODO(DONE)
+        return this.moveStack;
     }
 }
