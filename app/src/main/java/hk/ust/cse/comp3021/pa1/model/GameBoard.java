@@ -66,6 +66,7 @@ public final class GameBoard {
         }
         this.numCols = numCols;
 
+
         int numPlayer = 0;
         int xPlayer = 0;
         int yPlayer = 0;
