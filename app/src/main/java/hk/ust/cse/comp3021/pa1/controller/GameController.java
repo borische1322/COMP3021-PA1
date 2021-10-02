@@ -35,10 +35,18 @@ public class GameController {
      */
     public MoveResult processMove(@NotNull final Direction direction) {
         // TODO(DONE)
+        //System.out.println(direction);
         MoveResult move = gameState.getGameBoardController().makeMove(direction);
         if (move instanceof MoveResult.Valid ){
             if (move instanceof MoveResult.Valid.Alive c) {
                 gameState.increaseNumLives(c.collectedExtraLives.size());
+                for (int i = 0; i < ((MoveResult.Valid.Alive) move).collectedGems.size(); i++){
+                    gameState.getGameBoard().getEntityCell(((MoveResult.Valid.Alive) move).collectedGems.get(i)).setEntity(null);
+                }
+                for (int i = 0; i < ((MoveResult.Valid.Alive) move).collectedExtraLives.size(); i++){
+                    gameState.getGameBoard().getEntityCell(((MoveResult.Valid.Alive) move).collectedExtraLives.get(i)).setEntity(null);
+                }
+                gameState.getGameBoard().getEntityCell(((MoveResult.Valid.Alive) move).newPosition).setEntity(gameState.getGameBoard().getPlayer());
                 gameState.getMoveStack().push(move);
             }
             gameState.incrementNumMoves();
@@ -60,7 +68,9 @@ public class GameController {
         if (gameState.getNumMoves() == 0){
             return false;
         }else{
-            gameState.getGameBoardController().undoMove(gameState.getMoveStack().pop());
+            MoveResult m = gameState.getMoveStack().pop();
+            gameState.getGameBoardController().undoMove(m);
+            gameState.decreaseNumLives(((MoveResult.Valid.Alive) m).collectedExtraLives.size());
             return true;
         }
     }

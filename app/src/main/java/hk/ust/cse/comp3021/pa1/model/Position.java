@@ -35,6 +35,8 @@ public record Position(int row, int col) {
         if ( x < 0 || y < 0 ){
             throw new IllegalArgumentException("Offset is larger than current position resulting in negative value");
         }
+        //System.out.println(x);
+        //System.out.println(y);
         return new Position(y,x);
     }
 

@@ -46,6 +46,7 @@ public class GameBoardController {
     @NotNull
     public MoveResult makeMove(@NotNull final Direction direction) {
         // TODO(DONE)
+        //System.out.println("no");
         List<Position> collectedGems = new ArrayList<Position>();
         List<Position> collectedExtra = new ArrayList<Position>();
         int delta = 0;
@@ -56,36 +57,55 @@ public class GameBoardController {
         var playerCol = playerPosition.col();
         int offsetR = 0;
         int offsetC = 0;
+        //System.out.println(direction.getOffset().dRow());
+        //System.out.println(direction.getOffset().dCol());
         if ((offsetR = direction.getOffset().dRow()) != 0){
+            //System.out.println("HEY");
             playerRow += offsetR;
             delta ++;
             while(playerRow >= 0 && playerRow < gameBoard.getNumRows()){
+                //System.out.println("HIHI");
                 if (gameBoard.getCell(playerRow,playerCol) instanceof Wall){
+                    //System.out.println("WALL");
                     if (delta == 1){
+                        //System.out.println("WALL NEXT CELL NO MOVE");
                         return new MoveResult.Invalid(playerPosition);
                     }else{
-                        gameBoard.getEntityCell(playerRow-offsetR, playerCol).setEntity(gameBoard.getPlayer());
+                        //System.out.println("WALL MOVE");
+                        //gameBoard.getEntityCell(playerRow-offsetR, playerCol).setEntity(gameBoard.getPlayer());
                         return new MoveResult.Valid.Alive(playerPosition.offsetBy(delta * offsetR-offsetR, 0), playerPosition,collectedGems,collectedExtra);
                     }
                 } else if (gameBoard.getCell(playerRow,playerCol) instanceof EntityCell c){
                     if(c.getEntity() instanceof Gem){
-                        gameBoard.getEntityCell(playerRow, playerCol).setEntity(null);
+                        //System.out.println("GEM");
+                        //gameBoard.getEntityCell(playerRow, playerCol).setEntity(null);
                         collectedGems.add(new Position(playerRow,playerCol));
                     }
                     if(c.getEntity() instanceof ExtraLife){
-                        gameBoard.getEntityCell(playerRow, playerCol).setEntity(null);
+                        //System.out.println("EXTRA");
+                        //gameBoard.getEntityCell(playerRow, playerCol).setEntity(null);
                         collectedExtra.add(new Position(playerRow,playerCol));
                     }
                     if(c.getEntity() instanceof Mine){
+                        //System.out.println("MINE");
+                        collectedExtra.clear();
+                        collectedGems.clear();
                         return new MoveResult.Valid.Dead(playerPosition, playerPosition.offsetBy(delta * offsetR, 0));
                     }else if (c instanceof StopCell){
-                        gameBoard.getEntityCell(playerRow, playerCol).setEntity(gameBoard.getPlayer());
+                        //System.out.println("STOP");
+                        //gameBoard.getEntityCell(playerRow, playerCol).setEntity(gameBoard.getPlayer());
                         return new MoveResult.Valid.Alive(playerPosition.offsetBy(delta * offsetR, 0), playerPosition,collectedGems,collectedExtra);
                     }
+                }
+                if ((playerRow + offsetR) < 0 || (playerRow + offsetR)>=gameBoard.getNumRows()){
+                    //System.out.println("HIHIHIHIHI");
+                    //gameBoard.getEntityCell(playerRow, playerCol).setEntity(gameBoard.getPlayer());
+                    return new MoveResult.Valid.Alive(playerPosition.offsetBy(delta * offsetR, 0), playerPosition,collectedGems,collectedExtra);
                 }
                 delta++;
                 playerRow += offsetR;
             }
+
         }else if ((offsetC = direction.getOffset().dCol()) != 0){
             playerCol += offsetC;
             delta ++;
@@ -94,24 +114,32 @@ public class GameBoardController {
                     if (delta == 1){
                         return new MoveResult.Invalid(playerPosition);
                     }else{
-                        gameBoard.getEntityCell(playerRow, playerCol-offsetC).setEntity(gameBoard.getPlayer());
+                        //gameBoard.getEntityCell(playerRow, playerCol-offsetC).setEntity(gameBoard.getPlayer());
                         return new MoveResult.Valid.Alive(playerPosition.offsetBy(0, delta * offsetC-offsetC), playerPosition,collectedGems,collectedExtra);
                     }
                 } else if (gameBoard.getCell(playerRow,playerCol) instanceof EntityCell c){
                     if(c.getEntity() instanceof Gem){
-                        gameBoard.getEntityCell(playerRow, playerCol).setEntity(null);
+                        //gameBoard.getEntityCell(playerRow, playerCol).setEntity(null);
                         collectedGems.add(new Position(playerRow,playerCol));
                     }
                     if(c.getEntity() instanceof ExtraLife){
-                        gameBoard.getEntityCell(playerRow, playerCol).setEntity(null);
+                        //gameBoard.getEntityCell(playerRow, playerCol).setEntity(null);
                         collectedExtra.add(new Position(playerRow,playerCol));
                     }
                     if(c.getEntity() instanceof Mine){
+                        collectedExtra.clear();
+                        collectedGems.clear();
                         return new MoveResult.Valid.Dead(playerPosition, playerPosition.offsetBy(0, delta * offsetC));
                     }else if (c instanceof StopCell){
-                        gameBoard.getEntityCell(playerRow, playerCol).setEntity(gameBoard.getPlayer());
+                        //gameBoard.getEntityCell(playerRow, playerCol).setEntity(gameBoard.getPlayer());
                         return new MoveResult.Valid.Alive(playerPosition.offsetBy(0, delta * offsetC), playerPosition,collectedGems,collectedExtra);
                     }
+
+                }
+                if ((playerCol + offsetC) < 0 || (playerCol + offsetC)>=gameBoard.getNumCols()){
+                    //System.out.println("HIHIHIHIHI");
+                    //gameBoard.getEntityCell(playerRow, playerCol).setEntity(gameBoard.getPlayer());
+                    return new MoveResult.Valid.Alive(playerPosition.offsetBy(0, delta * offsetC), playerPosition,collectedGems,collectedExtra);
                 }
                 delta++;
                 playerCol += offsetC;
@@ -133,6 +161,19 @@ public class GameBoardController {
         // TODO(DONE)
         if (prevMove instanceof MoveResult.Valid c){
             gameBoard.getEntityCell(c.origPosition).setEntity(gameBoard.getEntityCell(c.newPosition).getEntity());
+            if (c instanceof MoveResult.Valid.Alive d){
+                if (!d.collectedGems.isEmpty()){
+                    for(int i = 0; i < d.collectedGems.size(); i++){
+                        gameBoard.getEntityCell(d.collectedGems.get(i)).setEntity(new Gem());
+                    }
+                }
+                if (!d.collectedExtraLives.isEmpty()){
+                    for(int i = 0; i < d.collectedExtraLives.size(); i++){
+                        gameBoard.getEntityCell(d.collectedExtraLives.get(i)).setEntity(new ExtraLife());
+
+                    }
+                }
+            }
         }
     }
 }
