@@ -2,7 +2,7 @@
   <configuration default="false" name="Main" type="Application" factoryName="Application" nameIsGenerated="true">
     <option name="MAIN_CLASS_NAME" value="hk.ust.cse.comp3021.pa1.Main" />
     <module name="COMP3021-2021Fall-PA1.app.main" />
-    <option name="PROGRAM_PARAMETERS" value="puzzles/04-random.game" />
+    <option name="PROGRAM_PARAMETERS" value="puzzles/05-custom.game" />
     <option name="WORKING_DIRECTORY" value="$ProjectFileDir$" />
     <extension name="coverage">
       <pattern>

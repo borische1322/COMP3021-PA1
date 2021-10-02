@@ -122,29 +122,38 @@ public final class GameBoard {
     private int[] reachableCell(int x, int y, @NotNull final Cell[][] cells, int[] numGems, boolean[][][] fill){
         fill[y][x][0] = true;
         for (int i = y - 1; i >= 0; i--){  //up
+            System.out.print(x);
+            System.out.print(" ");
+            System.out.print(i);
+            System.out.println();
             if (cells[i][x] instanceof Wall){
+                System.out.println("wall no move");
                 if(i == y - 1){
                     break;
                 }else if (!fill[i+1][x][0]){
+                    System.out.println("wall yes move");
                     reachableCell(x, i+1, cells, numGems, fill);
-                    break;
                 }
+                break;
             }
             if (cells[i][x] instanceof EntityCell c){
                 if(c.entity instanceof Gem){
                     if (!fill[i][x][1]){
+                        System.out.println("new gem");
                         numGems[0]++;
                         fill[i][x][1] = true;
                     }
                 }else if (c.entity instanceof Mine){
+                    System.out.println("mine");
                     fill[i][x][0] = true;
                     break;
                 }
                 if(c instanceof StopCell || i == 0){
                     if (!fill[i][x][0]){
+                        System.out.println("stop");
                         reachableCell(x, i, cells, numGems, fill);
-                        break;
                     }
+                    break;
                 }
             }
         }
@@ -154,8 +163,8 @@ public final class GameBoard {
                     break;
                 }else if (!fill[i-1][x][0]){
                     reachableCell(x, i-1, cells, numGems, fill);
-                    break;
                 }
+                break;
             }
             if (cells[i][x] instanceof EntityCell c){
                 if(c.entity instanceof Gem){
@@ -170,8 +179,8 @@ public final class GameBoard {
                 if(c instanceof StopCell || i+1 == numRows){
                     if (!fill[i][x][0]){
                         reachableCell(x, i, cells, numGems, fill);
-                        break;
                     }
+                    break;
                 }
             }
         }
@@ -181,8 +190,8 @@ public final class GameBoard {
                     break;
                 }else if (!fill[y][i + 1][0]){
                     reachableCell(i+1, y, cells, numGems, fill);
-                    break;
                 }
+                break;
             }
             if (cells[y][i] instanceof EntityCell c){
                 if(c.entity instanceof Gem){
@@ -197,8 +206,8 @@ public final class GameBoard {
                 if(c instanceof StopCell || i == 0){
                     if (!fill[y][i][0]){
                         reachableCell(i, y, cells, numGems, fill);
-                        break;
                     }
+                    break;
                 }
             }
         }
@@ -208,8 +217,8 @@ public final class GameBoard {
                     break;
                 }else if (!fill[y][i - 1][0]){
                     reachableCell(i - 1, y, cells, numGems, fill);
-                    break;
                 }
+                break;
             }
             if (cells[y][i] instanceof EntityCell c){
                 if(c.entity instanceof Gem){
@@ -224,11 +233,18 @@ public final class GameBoard {
                 if(c instanceof StopCell || i+1 == numCols){
                     if (!fill[y][i][0]){
                         reachableCell(i, y, cells, numGems, fill);
-                        break;
+
                     }
+                    break;
                 }
             }
         }
+        for (boolean[][] booleans : fill) {
+            System.out.println(Arrays.deepToString(booleans));
+        }
+        System.out.println();
+        System.out.println();
+//
 //        for ( int i = 0; i < fill.length; i++){
 //            System.out.println(Arrays.deepToString(fill[i]));
 //        }
