@@ -82,11 +82,11 @@ public final class StopCell extends EntityCell {
         return getEntity() != null ? getEntity().toASCIIChar() : '#';
     }
     //to delete, just for printing
-//    @Override
-//    public String toString() {
-//        if (entity == null ){
-//            return "stop Cell: null";
-//        }
-//        return "stop Cell: " + entity.toString();
-//    }
+    @Override
+    public String toString() {
+        if (entity == null ){
+            return "stop Cell: null";
+        }
+        return "stop Cell: " + entity.toString();
+    }
 }

@@ -39,8 +39,8 @@ public final class ExtraLife extends Entity {
     }
 
     //to be deleted, just for checking
-//    @Override
-//    public String toString() {
-//        return "Extra Life";
-//    }
+    @Override
+    public String toString() {
+        return "Extra Life";
+    }
 }

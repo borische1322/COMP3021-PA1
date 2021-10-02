@@ -39,8 +39,8 @@ public final class Gem extends Entity {
     }
 
     //to be deleted, just for checking
-//    @Override
-//    public String toString() {
-//        return "Gem";
-//    }
+    @Override
+    public String toString() {
+        return "Gem";
+    }
 }

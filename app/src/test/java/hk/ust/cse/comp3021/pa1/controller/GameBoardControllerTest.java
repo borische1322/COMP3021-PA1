@@ -10,6 +10,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.EnumSource;
 
+import java.util.Arrays;
 import java.util.Collections;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -171,6 +172,10 @@ public class GameBoardControllerTest {
             }
         });
         controller = new GameBoardController(gameBoard);
+        for (int i = 0; i < gameBoard.getNumRows(); i++){
+            System.out.println(Arrays.toString(gameBoard.getRow(i)));
+        }
+        System.out.println();
 
         assumeTrue(gameBoard.getEntityCell(0, 0).getEntity() instanceof Player);
         assumeTrue(gameBoard.getPlayer().equals(gameBoard.getEntityCell(0, 0).getEntity()));
@@ -178,6 +183,12 @@ public class GameBoardControllerTest {
         assumeTrue(gameBoard.getEntityCell(1, 3).getEntity() instanceof Gem);
 
         final var moveResult = controller.makeMove(Direction.RIGHT);
+
+        controller = new GameBoardController(gameBoard);
+        for (int i = 0; i < gameBoard.getNumRows(); i++){
+            System.out.println(Arrays.toString(gameBoard.getRow(i)));
+        }
+        System.out.println();
 
         assertTrue(moveResult instanceof MoveResult.Valid.Alive);
 

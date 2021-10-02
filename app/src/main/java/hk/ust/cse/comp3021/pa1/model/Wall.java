@@ -28,8 +28,8 @@ public final class Wall extends Cell {
     }
 
     //to be deleted, just for checking
-//    @Override
-//    public String toString() {
-//        return "Wall Cell";
-//    }
+    @Override
+    public String toString() {
+        return "Wall Cell: Wall";
+    }
 }

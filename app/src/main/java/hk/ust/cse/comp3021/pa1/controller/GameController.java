@@ -40,13 +40,13 @@ public class GameController {
         if (move instanceof MoveResult.Valid ){
             if (move instanceof MoveResult.Valid.Alive c) {
                 gameState.increaseNumLives(c.collectedExtraLives.size());
-                for (int i = 0; i < ((MoveResult.Valid.Alive) move).collectedGems.size(); i++){
-                    gameState.getGameBoard().getEntityCell(((MoveResult.Valid.Alive) move).collectedGems.get(i)).setEntity(null);
-                }
-                for (int i = 0; i < ((MoveResult.Valid.Alive) move).collectedExtraLives.size(); i++){
-                    gameState.getGameBoard().getEntityCell(((MoveResult.Valid.Alive) move).collectedExtraLives.get(i)).setEntity(null);
-                }
-                gameState.getGameBoard().getEntityCell(((MoveResult.Valid.Alive) move).newPosition).setEntity(gameState.getGameBoard().getPlayer());
+                //for (int i = 0; i < ((MoveResult.Valid.Alive) move).collectedGems.size(); i++){
+                //    gameState.getGameBoard().getEntityCell(((MoveResult.Valid.Alive) move).collectedGems.get(i)).setEntity(null);
+                //}
+                //for (int i = 0; i < ((MoveResult.Valid.Alive) move).collectedExtraLives.size(); i++){
+                 //   gameState.getGameBoard().getEntityCell(((MoveResult.Valid.Alive) move).collectedExtraLives.get(i)).setEntity(null);
+                //}
+                //gameState.getGameBoard().getEntityCell(((MoveResult.Valid.Alive) move).newPosition).setEntity(gameState.getGameBoard().getPlayer());
                 gameState.getMoveStack().push(move);
             }
             gameState.incrementNumMoves();
