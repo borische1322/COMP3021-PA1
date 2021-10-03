@@ -39,8 +39,8 @@ public final class Player extends Entity {
     }
 
     //to be deleted, just for checking
-    @Override
-    public String toString() {
-        return "Player";
-    }
+//    @Override
+//    public String toString() {
+//        return "Player";
+//    }
 }

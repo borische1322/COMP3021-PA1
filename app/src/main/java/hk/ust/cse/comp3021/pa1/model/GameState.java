@@ -242,7 +242,8 @@ public class GameState {
      */
     public int getScore() {
         // TODO(DONE)
-        return gameBoard.getNumCols()* gameBoard.getNumRows() + (initialNumOfGems - getNumGems())*10 - numMoves - moveStack.getPopCount()*2 - numDeaths*4;
+        return gameBoard.getNumCols()* gameBoard.getNumRows() + (initialNumOfGems - getNumGems())*10
+                - numMoves - moveStack.getPopCount()*2 - numDeaths*4;
     }
 
     /**

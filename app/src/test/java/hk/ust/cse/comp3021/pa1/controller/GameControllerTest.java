@@ -126,9 +126,6 @@ public class GameControllerTest {
     void testMakeMoveToAdjacentWallUnlimitedLives(final Direction direction) {
         final var wallPos = new Position(1, 1).offsetBy(direction.getOffset());
 
-        System.out.println(direction);
-        System.out.println(wallPos.col());
-        System.out.println(wallPos.row());
         gameBoard = GameBoardUtils.createGameBoard(3, 3, (pos) -> {
             if (pos.equals(new Position(1, 1))) {
                 return new EntityCell(pos, new Player());
@@ -143,10 +140,6 @@ public class GameControllerTest {
         gameState = new GameState(gameBoard);
         controller = new GameController(gameState);
 
-        for (int i = 0; i < gameBoard.getNumRows(); i++){
-            System.out.println(Arrays.toString(gameBoard.getRow(i)));
-        }
-        System.out.println();
 
         assumeFalse(gameState.hasWon());
         assumeFalse(gameState.hasLost());
@@ -159,12 +152,7 @@ public class GameControllerTest {
 
         final var moveResult = controller.processMove(direction);
 
-        for (int i = 0; i < gameBoard.getNumRows(); i++){
-            System.out.println(Arrays.toString(gameBoard.getRow(i)));
-        }
-        System.out.println();
 
-        System.out.println(moveResult instanceof MoveResult.Invalid);
         assumeTrue(moveResult instanceof MoveResult.Invalid);
 
         // Non-Mutation Assertions

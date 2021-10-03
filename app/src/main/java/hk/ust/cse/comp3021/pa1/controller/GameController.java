@@ -46,7 +46,8 @@ public class GameController {
                 //for (int i = 0; i < ((MoveResult.Valid.Alive) move).collectedExtraLives.size(); i++){
                  //   gameState.getGameBoard().getEntityCell(((MoveResult.Valid.Alive) move).collectedExtraLives.get(i)).setEntity(null);
                 //}
-                //gameState.getGameBoard().getEntityCell(((MoveResult.Valid.Alive) move).newPosition).setEntity(gameState.getGameBoard().getPlayer());
+                //gameState.getGameBoard().getEntityCell(((MoveResult.Valid.Alive) move).newPosition)
+                // .setEntity(gameState.getGameBoard().getPlayer());
                 gameState.getMoveStack().push(move);
             }
             gameState.incrementNumMoves();
@@ -65,7 +66,7 @@ public class GameController {
      */
     public boolean processUndo() {
         // TODO(DONE)
-        if (gameState.getNumMoves() == 0){
+        if (gameState.getMoveStack().isEmpty()){
             return false;
         }else{
             MoveResult m = gameState.getMoveStack().pop();

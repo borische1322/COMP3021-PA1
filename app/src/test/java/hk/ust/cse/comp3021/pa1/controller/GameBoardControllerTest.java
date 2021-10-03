@@ -172,10 +172,6 @@ public class GameBoardControllerTest {
             }
         });
         controller = new GameBoardController(gameBoard);
-        for (int i = 0; i < gameBoard.getNumRows(); i++){
-            System.out.println(Arrays.toString(gameBoard.getRow(i)));
-        }
-        System.out.println();
 
         assumeTrue(gameBoard.getEntityCell(0, 0).getEntity() instanceof Player);
         assumeTrue(gameBoard.getPlayer().equals(gameBoard.getEntityCell(0, 0).getEntity()));
@@ -185,10 +181,6 @@ public class GameBoardControllerTest {
         final var moveResult = controller.makeMove(Direction.RIGHT);
 
         controller = new GameBoardController(gameBoard);
-        for (int i = 0; i < gameBoard.getNumRows(); i++){
-            System.out.println(Arrays.toString(gameBoard.getRow(i)));
-        }
-        System.out.println();
 
         assertTrue(moveResult instanceof MoveResult.Valid.Alive);
 

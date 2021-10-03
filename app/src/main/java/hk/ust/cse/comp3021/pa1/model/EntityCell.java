@@ -110,11 +110,11 @@ public sealed class EntityCell extends Cell permits StopCell {
     }
 
     //to be deleted, just for checking
-    @Override
-    public String toString() {
-        if (entity == null ){
-            return "Entity Cell: null";
-        }
-        return "Entity Cell: " + entity.toString();
-    }
+//    @Override
+//    public String toString() {
+//        if (entity == null ){
+//            return "Entity Cell: null";
+//        }
+//        return "Entity Cell: " + entity.toString();
+//    }
 }

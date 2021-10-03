@@ -2,7 +2,6 @@ package hk.ust.cse.comp3021.pa1.model;
 
 import org.jetbrains.annotations.NotNull;
 
-import java.util.Arrays;
 
 /**
  * The main game board of the game.
@@ -113,8 +112,7 @@ public final class GameBoard {
             throw new IllegalArgumentException("there is no gem at all");
         }else if (numGem == reachableCell(xPlayer, yPlayer, cells, numReachableGem, fill)[0]){
             this.board = cells;
-        }
-        else{
+        } else{
             throw new IllegalArgumentException("not All gems are reachable");
         }
     }
@@ -122,16 +120,16 @@ public final class GameBoard {
     private int[] reachableCell(int x, int y, @NotNull final Cell[][] cells, int[] numGems, boolean[][][] fill){
         fill[y][x][0] = true;
         for (int i = y - 1; i >= 0; i--){  //up
-            System.out.print(x);
-            System.out.print(" ");
-            System.out.print(i);
-            System.out.println();
+//            System.out.print(x);
+//            System.out.print(" ");
+//            System.out.print(i);
+//            System.out.println();
             if (cells[i][x] instanceof Wall){
-                System.out.println("wall no move");
+                //System.out.println("wall no move");
                 if(i == y - 1){
                     break;
                 }else if (!fill[i+1][x][0]){
-                    System.out.println("wall yes move");
+                    //System.out.println("wall yes move");
                     reachableCell(x, i+1, cells, numGems, fill);
                 }
                 break;
@@ -139,18 +137,18 @@ public final class GameBoard {
             if (cells[i][x] instanceof EntityCell c){
                 if(c.entity instanceof Gem){
                     if (!fill[i][x][1]){
-                        System.out.println("new gem");
+                        //System.out.println("new gem");
                         numGems[0]++;
                         fill[i][x][1] = true;
                     }
                 }else if (c.entity instanceof Mine){
-                    System.out.println("mine");
+                    //System.out.println("mine");
                     fill[i][x][0] = true;
                     break;
                 }
                 if(c instanceof StopCell || i == 0){
                     if (!fill[i][x][0]){
-                        System.out.println("stop");
+                        //System.out.println("stop");
                         reachableCell(x, i, cells, numGems, fill);
                     }
                     break;
@@ -239,148 +237,11 @@ public final class GameBoard {
                 }
             }
         }
-        for (boolean[][] booleans : fill) {
-            System.out.println(Arrays.deepToString(booleans));
-        }
-        System.out.println();
-        System.out.println();
-//
-//        for ( int i = 0; i < fill.length; i++){
-//            System.out.println(Arrays.deepToString(fill[i]));
+//        for (boolean[][] booleans : fill) {
+//            System.out.println(Arrays.deepToString(booleans));
 //        }
-//        System.out.println(numGems[0]);
-//        for (int i = y - 1, j = x - 1; i >= 0 || j >= 0; i--, j--){ //up left
-//            if (i == 0 || j == 0){
-//                if (!fill[i][j][0]){
-//                    reachableCell(j, i, cells, numGems, fill);
-//                    break;
-//                }
-//            }
-//            if (cells[i][j] instanceof Wall){
-//                if(i == y - 1 && j == x - 1){
-//                    break;
-//                }else if (!fill[i+1][j+1][0]){
-//                    reachableCell(j+1, i+1, cells, numGems, fill);
-//                    break;
-//                }
-//            }
-//            if (cells[i][j] instanceof EntityCell c){
-//                if(c.entity instanceof Gem){
-//                    if (!fill[i][j][1]){
-//                        numGems++;
-//                        fill[i][j][1] = true;
-//                    }
-//                }else if (c.entity instanceof Mine){
-//                    fill[i][j][0] = true;
-//                    break;
-//                }
-//                if(c instanceof StopCell ){
-//                    if (!fill[i][j][0]){
-//                        reachableCell(j, i, cells, numGems, fill);
-//                        break;
-//                    }
-//                }
-//            }
-//        }
-//        for (int i = y - 1, j = x + 1; i >= 0 || j <numCols; i--, j++){ // up right
-//            if (i == 0 || j + 1 == numCols){
-//                if (!fill[i][j][0]){
-//                    reachableCell(j, i, cells, numGems, fill);
-//                    break;
-//                }
-//            }
-//            if (cells[i][j] instanceof Wall){
-//                if(i == y - 1 && j == x + 1){
-//                    break;
-//                }else if (!fill[i+1][j-1][0]){
-//                    reachableCell(j-1, i+1, cells, numGems, fill);
-//                    break;
-//                }
-//            }
-//            if (cells[i][j] instanceof EntityCell c){
-//                if(c.entity instanceof Gem){
-//                    if (!fill[i][j][1]){
-//                        numGems++;
-//                        fill[i][j][1] = true;
-//                    }
-//                }else if (c.entity instanceof Mine){
-//                    fill[i][j][0] = true;
-//                    break;
-//                }
-//                if(c instanceof StopCell ){
-//                    if (!fill[i][j][0]){
-//                        reachableCell(j, i, cells, numGems, fill);
-//                        break;
-//                    }
-//                }
-//            }
-//        }
-//        for (int i = y + 1, j = x - 1; i < numRows || j >= 0; i++, j--){ // down left
-//            if (i +1 == numRows || j == 0){
-//                if (!fill[i][j][0]){
-//                    reachableCell(j, i, cells, numGems, fill);
-//                    break;
-//                }
-//            }
-//            if (cells[i][j] instanceof Wall){
-//                if(i == y + 1 && j == x - 1){
-//                    break;
-//                }else if (!fill[i-1][j+1][0]){
-//                    reachableCell(j+1, i-1, cells, numGems, fill);
-//                    break;
-//                }
-//            }
-//            if (cells[i][j] instanceof EntityCell c){
-//                if(c.entity instanceof Gem){
-//                    if (!fill[i][j][1]){
-//                        numGems++;
-//                        fill[i][j][1] = true;
-//                    }
-//                }else if (c.entity instanceof Mine){
-//                    fill[i][j][0] = true;
-//                    break;
-//                }
-//                if(c instanceof StopCell ){
-//                    if (!fill[i][j][0]){
-//                        reachableCell(j, i, cells, numGems, fill);
-//                        break;
-//                    }
-//                }
-//            }
-//        }
-//        for (int i = y + 1, j = x + 1; i < numRows || j < numCols; i++, j++){ // down right
-//            if (i +1 == numRows || j +1 == numCols){
-//                if (!fill[i][j][0]){
-//                    reachableCell(j, i, cells, numGems, fill);
-//                    break;
-//                }
-//            }
-//            if (cells[i][j] instanceof Wall){
-//                if(i == y + 1 && j == x + 1){
-//                    break;
-//                }else if (!fill[i-1][j-1][0]){
-//                    reachableCell(j-1, i-1, cells, numGems, fill);
-//                    break;
-//                }
-//            }
-//            if (cells[i][j] instanceof EntityCell c){
-//                if(c.entity instanceof Gem){
-//                    if (!fill[i][j][1]){
-//                        numGems++;
-//                        fill[i][j][1] = true;
-//                    }
-//                }else if (c.entity instanceof Mine){
-//                    fill[i][j][0] = true;
-//                    break;
-//                }
-//                if(c instanceof StopCell ){
-//                    if (!fill[i][j][0]){
-//                        reachableCell(j, i, cells, numGems, fill);
-//                        break;
-//                    }
-//                }
-//            }
-//        }
+//        System.out.println();
+//        System.out.println();
         return numGems;
     }
 
@@ -460,8 +321,7 @@ public final class GameBoard {
 //        System.out.println(board[0].length);
         if (board[r][c] instanceof EntityCell d){
             return d;
-        }
-        else{
+        } else{
             throw new IllegalArgumentException("Cell not an EntityCell");
         }
     }

@@ -39,8 +39,8 @@ public final class Mine extends Entity {
     }
 
     //to be deleted, just for checking
-    @Override
-    public String toString() {
-        return "Mine";
-    }
+//    @Override
+//    public String toString() {
+//        return "Mine";
+//    }
 }
